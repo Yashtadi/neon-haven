@@ -76,14 +76,21 @@ export default function Orders() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-3xl font-bold mb-2">Your Orders</h1>
-        <p className="text-muted-foreground mb-8">Pending Orders ({orders.length})</p>
+        <p className="text-muted-foreground mb-8">
+          Pending Orders ({orders.length})
+        </p>
 
         {orders.length === 0 ? (
           <div className="text-center py-16 border border-border rounded-xl">
             <div className="text-6xl mb-4">📦</div>
             <h2 className="text-2xl font-bold mb-2">No orders yet</h2>
-            <p className="text-muted-foreground mb-6">Start shopping to place your first order!</p>
-            <Link to="/shop" className="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition">
+            <p className="text-muted-foreground mb-6">
+              Start shopping to place your first order!
+            </p>
+            <Link
+              to="/shop"
+              className="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition"
+            >
               Continue Shopping
             </Link>
           </div>
@@ -118,16 +125,20 @@ export default function Orders() {
 
                       {/* Order Details */}
                       <div>
-                        <h3 className="font-semibold text-lg">Order #{order._id}</h3>
+                        <h3 className="font-semibold text-lg">
+                          Order #{order._id}
+                        </h3>
                         <p className="text-sm text-muted-foreground">
-                          {order.items.length} items • Placed on {new Date(order.createdAt).toLocaleDateString()}
+                          {order.items.length} items • Placed on{" "}
+                          {new Date(order.createdAt).toLocaleDateString()}
                         </p>
                       </div>
 
                       {/* Status Badge */}
                       <div className="ml-auto">
                         <span className="inline-block bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-medium">
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                          {order.status.charAt(0).toUpperCase() +
+                            order.status.slice(1)}
                         </span>
                       </div>
                     </div>
@@ -138,21 +149,26 @@ export default function Orders() {
                         <p className="text-muted-foreground flex items-center gap-2">
                           📅 Expected Delivery
                         </p>
-                        <p className="font-semibold">{new Date(order.deliveryDate).toLocaleDateString()}</p>
+                        <p className="font-semibold">
+                          {new Date(order.deliveryDate).toLocaleDateString()}
+                        </p>
                       </div>
                       <div>
                         <p className="text-muted-foreground flex items-center gap-2">
                           📍 Delivery to
                         </p>
                         <p className="font-semibold capitalize">
-                          {order.deliveryAddress.city}, {order.deliveryAddress.state}
+                          {order.deliveryAddress.city},{" "}
+                          {order.deliveryAddress.state}
                         </p>
                       </div>
                     </div>
 
                     {/* Order Amount */}
                     <div className="mt-4 pt-4 border-t border-border">
-                      <p className="text-lg font-bold text-primary">₹{order.total.toFixed(2)}</p>
+                      <p className="text-lg font-bold text-primary">
+                        ₹{order.total.toFixed(2)}
+                      </p>
                     </div>
                   </div>
 

@@ -54,8 +54,12 @@ export default function Auth() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="text-4xl mb-2">🌿</div>
-          <h1 className="text-3xl font-bold text-primary mb-2">Welcome to PlantHub</h1>
-          <p className="text-muted-foreground">Join our community of plant lovers</p>
+          <h1 className="text-3xl font-bold text-primary mb-2">
+            Welcome to PlantHub
+          </h1>
+          <p className="text-muted-foreground">
+            Join our community of plant lovers
+          </p>
         </div>
 
         {/* Tabs */}
@@ -67,7 +71,9 @@ export default function Auth() {
               setFormData({ name: "", email: "", password: "" });
             }}
             className={`flex-1 py-2 px-4 rounded-lg font-medium transition ${
-              !isSignUp ? "bg-primary text-white" : "bg-muted text-foreground hover:bg-muted/80"
+              !isSignUp
+                ? "bg-primary text-white"
+                : "bg-muted text-foreground hover:bg-muted/80"
             }`}
           >
             Login
@@ -79,7 +85,9 @@ export default function Auth() {
               setFormData({ name: "", email: "", password: "" });
             }}
             className={`flex-1 py-2 px-4 rounded-lg font-medium transition ${
-              isSignUp ? "bg-primary text-white" : "bg-muted text-foreground hover:bg-muted/80"
+              isSignUp
+                ? "bg-primary text-white"
+                : "bg-muted text-foreground hover:bg-muted/80"
             }`}
           >
             Sign Up
@@ -145,7 +153,8 @@ export default function Auth() {
                 <p className="text-sm text-yellow-800">
                   💡 <strong>Want exclusive benefits?</strong>
                   <br />
-                  Subscribe to our Eco & Pro plans after signing up to get discounts, free delivery, and more!
+                  Subscribe to our Eco & Pro plans after signing up to get
+                  discounts, free delivery, and more!
                 </p>
               </div>
             )}
@@ -155,7 +164,11 @@ export default function Auth() {
               disabled={loading}
               className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 rounded-lg transition"
             >
-              {loading ? "Processing..." : isSignUp ? "Create Account" : "Login"}
+              {loading
+                ? "Processing..."
+                : isSignUp
+                  ? "Create Account"
+                  : "Login"}
             </Button>
           </form>
         </div>
@@ -163,7 +176,8 @@ export default function Auth() {
         {/* Demo Notice */}
         <div className="mt-6 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
           <p>
-            <strong>Demo Account:</strong> Feel free to create a new account or use any email/password combination to test the app.
+            <strong>Demo Account:</strong> Feel free to create a new account or
+            use any email/password combination to test the app.
           </p>
         </div>
       </div>

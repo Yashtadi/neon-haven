@@ -28,7 +28,7 @@ export default function Cart() {
     if (newQuantity < 1) return;
 
     const updated = cart.map((item) =>
-      item._id === productId ? { ...item, quantity: newQuantity } : item
+      item._id === productId ? { ...item, quantity: newQuantity } : item,
     );
     setCart(updated);
     localStorage.setItem("cart", JSON.stringify(updated));
@@ -40,7 +40,10 @@ export default function Cart() {
     localStorage.setItem("cart", JSON.stringify(updated));
   };
 
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
   const discount = Math.floor(subtotal * 0.2); // 20% subscription discount
   const shipping = 0; // Free shipping
   const total = subtotal - discount + shipping;
@@ -60,7 +63,10 @@ export default function Cart() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Link */}
-        <Link to="/shop" className="flex items-center gap-2 text-primary hover:gap-3 transition mb-6 font-medium">
+        <Link
+          to="/shop"
+          className="flex items-center gap-2 text-primary hover:gap-3 transition mb-6 font-medium"
+        >
           <ArrowLeft className="w-4 h-4" />
           Continue Shopping
         </Link>
@@ -71,9 +77,13 @@ export default function Cart() {
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🛒</div>
             <h2 className="text-2xl font-bold mb-2">Your cart is empty</h2>
-            <p className="text-muted-foreground mb-6">Start adding plants to your cart!</p>
+            <p className="text-muted-foreground mb-6">
+              Start adding plants to your cart!
+            </p>
             <Link to="/shop">
-              <Button className="bg-primary hover:bg-primary/90 text-white">Continue Shopping</Button>
+              <Button className="bg-primary hover:bg-primary/90 text-white">
+                Continue Shopping
+              </Button>
             </Link>
           </div>
         ) : (
@@ -95,20 +105,30 @@ export default function Cart() {
 
                     {/* Details */}
                     <div className="flex-1">
-                      <h3 className="font-semibold text-foreground">{item.name}</h3>
-                      <p className="text-sm text-muted-foreground mt-1">₹{item.price.toFixed(2)}</p>
+                      <h3 className="font-semibold text-foreground">
+                        {item.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        ₹{item.price.toFixed(2)}
+                      </p>
 
                       {/* Quantity Controls */}
                       <div className="mt-3 flex items-center gap-2 border border-border rounded-lg w-fit">
                         <button
-                          onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                          onClick={() =>
+                            updateQuantity(item._id, item.quantity - 1)
+                          }
                           className="p-1 hover:bg-muted transition"
                         >
                           <Minus className="w-4 h-4" />
                         </button>
-                        <span className="px-3 py-1 font-semibold">{item.quantity}</span>
+                        <span className="px-3 py-1 font-semibold">
+                          {item.quantity}
+                        </span>
                         <button
-                          onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                          onClick={() =>
+                            updateQuantity(item._id, item.quantity + 1)
+                          }
                           className="p-1 hover:bg-muted transition"
                         >
                           <Plus className="w-4 h-4" />
@@ -118,7 +138,9 @@ export default function Cart() {
 
                     {/* Price & Delete */}
                     <div className="flex flex-col items-end justify-between">
-                      <p className="font-bold text-primary">₹{(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="font-bold text-primary">
+                        ₹{(item.price * item.quantity).toFixed(2)}
+                      </p>
                       <button
                         onClick={() => removeItem(item._id)}
                         className="text-destructive hover:bg-destructive/10 p-2 rounded transition"
@@ -142,13 +164,17 @@ export default function Cart() {
                 </div>
                 {discount > 0 && (
                   <div className="flex justify-between text-sm text-green-600">
-                    <span className="text-muted-foreground">💚 Subscription Discount</span>
+                    <span className="text-muted-foreground">
+                      💚 Subscription Discount
+                    </span>
                     <span>-₹{discount.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Shipping</span>
-                  <span>{shipping === 0 ? "FREE" : `₹${shipping.toFixed(2)}`}</span>
+                  <span>
+                    {shipping === 0 ? "FREE" : `₹${shipping.toFixed(2)}`}
+                  </span>
                 </div>
               </div>
 
@@ -174,7 +200,8 @@ export default function Cart() {
               </button>
 
               <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
-                ℹ️ <strong>Subscribe and save up to 20%!</strong> on every order.
+                ℹ️ <strong>Subscribe and save up to 20%!</strong> on every
+                order.
               </div>
             </div>
           </div>

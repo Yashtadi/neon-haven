@@ -12,7 +12,10 @@ interface AuthRequest {
 let tokenStore: Map<string, { userId: string; expires: number }> = new Map();
 
 const generateToken = (): string => {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
 };
 
 export const registerUser: RequestHandler = async (req, res) => {
@@ -41,7 +44,10 @@ export const registerUser: RequestHandler = async (req, res) => {
     });
 
     const token = generateToken();
-    tokenStore.set(token, { userId: newUser._id.toString(), expires: Date.now() + 7 * 24 * 60 * 60 * 1000 });
+    tokenStore.set(token, {
+      userId: newUser._id.toString(),
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.json({
       user: {
@@ -77,7 +83,10 @@ export const loginUser: RequestHandler = async (req, res) => {
     }
 
     const token = generateToken();
-    tokenStore.set(token, { userId: user._id.toString(), expires: Date.now() + 7 * 24 * 60 * 60 * 1000 });
+    tokenStore.set(token, {
+      userId: user._id.toString(),
+      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    });
 
     res.json({
       user: {

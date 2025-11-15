@@ -45,7 +45,10 @@ export default function Checkout() {
     couponCode: "",
   });
 
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
   const discount = Math.floor(subtotal * 0.2);
   const shipping = 0;
   const total = subtotal - discount + shipping;
@@ -67,7 +70,14 @@ export default function Checkout() {
   };
 
   const validateStep1 = () => {
-    if (!formData.fullName || !formData.phone || !formData.address || !formData.city || !formData.state || !formData.pincode) {
+    if (
+      !formData.fullName ||
+      !formData.phone ||
+      !formData.address ||
+      !formData.city ||
+      !formData.state ||
+      !formData.pincode
+    ) {
       alert("Please fill all fields");
       return false;
     }
@@ -88,15 +98,16 @@ export default function Checkout() {
         shipping,
         total,
         deliveryAddress: formData,
-        paymentMethod: paymentData.method === "upi" ? "UPI Payment" : "Cash on Delivery",
+        paymentMethod:
+          paymentData.method === "upi" ? "UPI Payment" : "Cash on Delivery",
       };
 
       const response = await fetch("/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-User-Id": localStorage.getItem("authUser") 
-            ? JSON.parse(localStorage.getItem("authUser") || "{}").email 
+          "X-User-Id": localStorage.getItem("authUser")
+            ? JSON.parse(localStorage.getItem("authUser") || "{}").email
             : "user",
         },
         body: JSON.stringify(orderData),
@@ -110,7 +121,10 @@ export default function Checkout() {
       // Redirect to order detail
       navigate(`/orders/${order._id}`);
     } catch (error) {
-      alert("Failed to place order: " + (error instanceof Error ? error.message : "Unknown error"));
+      alert(
+        "Failed to place order: " +
+          (error instanceof Error ? error.message : "Unknown error"),
+      );
     } finally {
       setLoading(false);
     }
@@ -126,7 +140,10 @@ export default function Checkout() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
-        <Link to="/cart" className="flex items-center gap-2 text-primary hover:gap-3 transition mb-6 font-medium">
+        <Link
+          to="/cart"
+          className="flex items-center gap-2 text-primary hover:gap-3 transition mb-6 font-medium"
+        >
           <ArrowLeft className="w-4 h-4" />
           Back
         </Link>
@@ -139,16 +156,22 @@ export default function Checkout() {
             <div key={s.number} className="flex items-center">
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition ${
-                  step >= s.number ? "bg-primary text-white" : "bg-muted text-muted-foreground"
+                  step >= s.number
+                    ? "bg-primary text-white"
+                    : "bg-muted text-muted-foreground"
                 }`}
               >
                 {s.number}
               </div>
-              <p className={`ml-2 font-medium ${step >= s.number ? "text-primary" : "text-muted-foreground"}`}>
+              <p
+                className={`ml-2 font-medium ${step >= s.number ? "text-primary" : "text-muted-foreground"}`}
+              >
                 {s.title}
               </p>
               {idx < steps.length - 1 && (
-                <div className={`mx-4 h-1 w-16 ${step > s.number ? "bg-primary" : "bg-muted"}`}></div>
+                <div
+                  className={`mx-4 h-1 w-16 ${step > s.number ? "bg-primary" : "bg-muted"}`}
+                ></div>
               )}
             </div>
           ))}
@@ -164,7 +187,9 @@ export default function Checkout() {
 
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Full Name</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Full Name
+                    </label>
                     <input
                       type="text"
                       name="fullName"
@@ -176,7 +201,9 @@ export default function Checkout() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Phone Number</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Phone Number
+                    </label>
                     <input
                       type="tel"
                       name="phone"
@@ -188,7 +215,9 @@ export default function Checkout() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Address</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Address
+                    </label>
                     <input
                       type="text"
                       name="address"
@@ -201,7 +230,9 @@ export default function Checkout() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2">City</label>
+                      <label className="block text-sm font-medium mb-2">
+                        City
+                      </label>
                       <input
                         type="text"
                         name="city"
@@ -212,7 +243,9 @@ export default function Checkout() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2">State</label>
+                      <label className="block text-sm font-medium mb-2">
+                        State
+                      </label>
                       <input
                         type="text"
                         name="state"
@@ -225,7 +258,9 @@ export default function Checkout() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Pincode</label>
+                    <label className="block text-sm font-medium mb-2">
+                      Pincode
+                    </label>
                     <input
                       type="text"
                       name="pincode"
@@ -261,12 +296,19 @@ export default function Checkout() {
                       name="paymentMethod"
                       value="upi"
                       checked={paymentData.method === "upi"}
-                      onChange={(e) => setPaymentData((prev) => ({ ...prev, method: e.target.value as "upi" }))}
+                      onChange={(e) =>
+                        setPaymentData((prev) => ({
+                          ...prev,
+                          method: e.target.value as "upi",
+                        }))
+                      }
                       className="w-4 h-4"
                     />
                     <span className="ml-3 flex-1">
                       <strong>UPI Payment</strong>
-                      <p className="text-sm text-muted-foreground">Pay using UPI ID</p>
+                      <p className="text-sm text-muted-foreground">
+                        Pay using UPI ID
+                      </p>
                     </span>
                   </label>
 
@@ -276,27 +318,43 @@ export default function Checkout() {
                       name="paymentMethod"
                       value="cod"
                       checked={paymentData.method === "cod"}
-                      onChange={(e) => setPaymentData((prev) => ({ ...prev, method: e.target.value as "cod" }))}
+                      onChange={(e) =>
+                        setPaymentData((prev) => ({
+                          ...prev,
+                          method: e.target.value as "cod",
+                        }))
+                      }
                       className="w-4 h-4"
                     />
                     <span className="ml-3 flex-1">
                       <strong>Cash on Delivery</strong>
-                      <p className="text-sm text-muted-foreground">Pay when you receive</p>
+                      <p className="text-sm text-muted-foreground">
+                        Pay when you receive
+                      </p>
                     </span>
                   </label>
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-medium mb-2">Make a Coupon Code?</label>
+                  <label className="block text-sm font-medium mb-2">
+                    Make a Coupon Code?
+                  </label>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       value={paymentData.couponCode}
-                      onChange={(e) => setPaymentData((prev) => ({ ...prev, couponCode: e.target.value }))}
+                      onChange={(e) =>
+                        setPaymentData((prev) => ({
+                          ...prev,
+                          couponCode: e.target.value,
+                        }))
+                      }
                       placeholder="Enter code"
                       className="flex-1 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-input"
                     />
-                    <Button className="bg-primary hover:bg-primary/90 text-white">Apply</Button>
+                    <Button className="bg-primary hover:bg-primary/90 text-white">
+                      Apply
+                    </Button>
                   </div>
                 </div>
 
@@ -328,7 +386,10 @@ export default function Checkout() {
                   {/* Delivery Address */}
                   <div className="border-b border-border pb-6">
                     <h3 className="font-semibold mb-3 flex items-center gap-2">
-                      🏠 <span>Delivery Address</span> <span className="text-sm text-muted-foreground ml-auto">Edit</span>
+                      🏠 <span>Delivery Address</span>{" "}
+                      <span className="text-sm text-muted-foreground ml-auto">
+                        Edit
+                      </span>
                     </h3>
                     <p className="text-sm text-muted-foreground">
                       {formData.fullName}
@@ -344,10 +405,15 @@ export default function Checkout() {
                   {/* Payment Method */}
                   <div className="border-b border-border pb-6">
                     <h3 className="font-semibold mb-3 flex items-center gap-2">
-                      💳 <span>Payment Method</span> <span className="text-sm text-muted-foreground ml-auto">Edit</span>
+                      💳 <span>Payment Method</span>{" "}
+                      <span className="text-sm text-muted-foreground ml-auto">
+                        Edit
+                      </span>
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      {paymentData.method === "upi" ? "UPI Payment" : "Cash on Delivery"}
+                      {paymentData.method === "upi"
+                        ? "UPI Payment"
+                        : "Cash on Delivery"}
                     </p>
                   </div>
 
@@ -358,11 +424,16 @@ export default function Checkout() {
                     </h3>
                     <div className="space-y-2">
                       {cart.map((item) => (
-                        <div key={item._id} className="flex justify-between text-sm">
+                        <div
+                          key={item._id}
+                          className="flex justify-between text-sm"
+                        >
                           <span>
                             {item.name} x {item.quantity}
                           </span>
-                          <span>₹{(item.price * item.quantity).toFixed(2)}</span>
+                          <span>
+                            ₹{(item.price * item.quantity).toFixed(2)}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -373,7 +444,9 @@ export default function Checkout() {
                     <h3 className="font-semibold mb-2 flex items-center gap-2">
                       📅 Expected Delivery
                     </h3>
-                    <p className="text-sm text-muted-foreground">By 7 November 2025</p>
+                    <p className="text-sm text-muted-foreground">
+                      By 7 November 2025
+                    </p>
                   </div>
                 </div>
 
@@ -408,13 +481,17 @@ export default function Checkout() {
               </div>
               {discount > 0 && (
                 <div className="flex justify-between text-sm text-green-600">
-                  <span className="text-muted-foreground">💚 Subscription (20%)</span>
+                  <span className="text-muted-foreground">
+                    💚 Subscription (20%)
+                  </span>
                   <span>-₹{discount.toFixed(2)}</span>
                 </div>
               )}
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Shipping</span>
-                <span>{shipping === 0 ? "FREE" : `₹${shipping.toFixed(2)}`}</span>
+                <span>
+                  {shipping === 0 ? "FREE" : `₹${shipping.toFixed(2)}`}
+                </span>
               </div>
             </div>
 

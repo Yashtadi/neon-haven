@@ -42,8 +42,18 @@ export default function OrderDetail() {
       items: [
         { productId: "1", name: "Aloe Vera", quantity: 1, price: 199 },
         { productId: "2", name: "Areca Palm", quantity: 1, price: 799 },
-        { productId: "3", name: "Jade Plant (Crassula)", quantity: 1, price: 249 },
-        { productId: "4", name: "Rubber Plant (Ficus)", quantity: 1, price: 599 },
+        {
+          productId: "3",
+          name: "Jade Plant (Crassula)",
+          quantity: 1,
+          price: 249,
+        },
+        {
+          productId: "4",
+          name: "Rubber Plant (Ficus)",
+          quantity: 1,
+          price: 599,
+        },
         { productId: "5", name: "Money Plant", quantity: 1, price: 299 },
       ],
       subtotal: 2145,
@@ -84,7 +94,10 @@ export default function OrderDetail() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <p className="text-lg text-muted-foreground">Order not found</p>
-          <Link to="/orders" className="text-primary hover:underline mt-4 inline-block">
+          <Link
+            to="/orders"
+            className="text-primary hover:underline mt-4 inline-block"
+          >
             Back to Orders
           </Link>
         </div>
@@ -96,7 +109,10 @@ export default function OrderDetail() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
-        <Link to="/orders" className="flex items-center gap-2 text-primary hover:gap-3 transition mb-6 font-medium">
+        <Link
+          to="/orders"
+          className="flex items-center gap-2 text-primary hover:gap-3 transition mb-6 font-medium"
+        >
           <ArrowLeft className="w-4 h-4" />
           Back to Orders
         </Link>
@@ -105,7 +121,12 @@ export default function OrderDetail() {
           <div>
             <h1 className="text-3xl font-bold mb-2">Order #{order._id}</h1>
             <p className="text-muted-foreground">
-              Placed on {new Date(order.createdAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+              Placed on{" "}
+              {new Date(order.createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </p>
           </div>
           <span className="bg-blue-100 text-blue-800 text-sm px-4 py-2 rounded-full font-medium">
@@ -123,9 +144,12 @@ export default function OrderDetail() {
               </h2>
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                 <p className="text-blue-900 font-semibold">Order Confirmed</p>
-                <p className="text-sm text-blue-800">Your order is being prepared</p>
+                <p className="text-sm text-blue-800">
+                  Your order is being prepared
+                </p>
                 <p className="text-sm text-blue-700 mt-2">
-                  Projected delivery by {new Date(order.deliveryDate).toLocaleDateString()}
+                  Projected delivery by{" "}
+                  {new Date(order.deliveryDate).toLocaleDateString()}
                 </p>
               </div>
             </div>
@@ -136,11 +160,18 @@ export default function OrderDetail() {
                 📍 Delivery Address
               </h2>
               <div className="bg-muted/50 rounded-lg p-4">
-                <p className="font-semibold text-foreground">{order.deliveryAddress.fullName}</p>
-                <p className="text-muted-foreground text-sm">{order.deliveryAddress.phone}</p>
-                <p className="text-muted-foreground text-sm mt-2">{order.deliveryAddress.address}</p>
+                <p className="font-semibold text-foreground">
+                  {order.deliveryAddress.fullName}
+                </p>
                 <p className="text-muted-foreground text-sm">
-                  {order.deliveryAddress.city}, {order.deliveryAddress.state} - {order.deliveryAddress.pincode}
+                  {order.deliveryAddress.phone}
+                </p>
+                <p className="text-muted-foreground text-sm mt-2">
+                  {order.deliveryAddress.address}
+                </p>
+                <p className="text-muted-foreground text-sm">
+                  {order.deliveryAddress.city}, {order.deliveryAddress.state} -{" "}
+                  {order.deliveryAddress.pincode}
                 </p>
               </div>
             </div>
@@ -156,7 +187,9 @@ export default function OrderDetail() {
                 </div>
                 <div>
                   <p className="font-semibold">{order.paymentMethod}</p>
-                  <p className="text-sm text-muted-foreground">Pay when you receive</p>
+                  <p className="text-sm text-muted-foreground">
+                    Pay when you receive
+                  </p>
                 </div>
               </div>
             </div>
@@ -168,15 +201,24 @@ export default function OrderDetail() {
               </h2>
               <div className="space-y-4">
                 {order.items.map((item, idx) => (
-                  <div key={idx} className="flex gap-4 pb-4 border-b border-border last:border-0">
+                  <div
+                    key={idx}
+                    className="flex gap-4 pb-4 border-b border-border last:border-0"
+                  >
                     <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center text-2xl flex-shrink-0">
                       🌿
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-foreground">{item.name}</h3>
-                      <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
+                      <h3 className="font-semibold text-foreground">
+                        {item.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        Qty: {item.quantity}
+                      </p>
                     </div>
-                    <p className="font-bold text-primary">₹{(item.price * item.quantity).toFixed(2)}</p>
+                    <p className="font-bold text-primary">
+                      ₹{(item.price * item.quantity).toFixed(2)}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -188,7 +230,10 @@ export default function OrderDetail() {
                 🚚 Expected Delivery
               </h2>
               <p className="text-green-800">
-                By <strong>{new Date(order.deliveryDate).toLocaleDateString()}</strong>
+                By{" "}
+                <strong>
+                  {new Date(order.deliveryDate).toLocaleDateString()}
+                </strong>
               </p>
             </div>
           </div>
@@ -204,13 +249,19 @@ export default function OrderDetail() {
               </div>
               {order.discount > 0 && (
                 <div className="flex justify-between text-sm text-green-600">
-                  <span className="text-muted-foreground">💚 Subscription Discount</span>
+                  <span className="text-muted-foreground">
+                    💚 Subscription Discount
+                  </span>
                   <span>-₹{order.discount.toFixed(2)}</span>
                 </div>
               )}
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Shipping</span>
-                <span>{order.shipping === 0 ? "FREE" : `₹${order.shipping.toFixed(2)}`}</span>
+                <span>
+                  {order.shipping === 0
+                    ? "FREE"
+                    : `₹${order.shipping.toFixed(2)}`}
+                </span>
               </div>
             </div>
 

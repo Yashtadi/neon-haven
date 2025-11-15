@@ -26,8 +26,8 @@ export default function CareTips() {
       description:
         "Indian homes have varying light conditions. Understanding your plant's light needs based on your balcony or window direction is crucial.",
       details: [
-        'Bright Direct Light: South or west facing balconies/windows. Perfect for: Tulsi, Aloe Vera, Jade Plant. Best in morning sun to avoid harsh afternoon heat.',
-        'Bright Indirect Light: North or east facing windows or a few feet from bright windows. Ideal for: Money Plant, Rubber Plant, Areca Palm.',
+        "Bright Direct Light: South or west facing balconies/windows. Perfect for: Tulsi, Aloe Vera, Jade Plant. Best in morning sun to avoid harsh afternoon heat.",
+        "Bright Indirect Light: North or east facing windows or a few feet from bright windows. Ideal for: Money Plant, Rubber Plant, Areca Palm.",
         "Low Light: North facing windows or interior rooms with AC. Perfect for: Snake Plant, ZZ Plant, Peace Lily.",
       ],
       highlight: "Bright Indirect Light",
@@ -61,7 +61,8 @@ export default function CareTips() {
             5-Step Plant Care Guide for Indian Climate
           </h1>
           <p className="text-lg text-muted-foreground">
-            New to plants? Don't worry! Follow these 5 simple steps tailored for Indian homes to keep your plants healthy and thriving.
+            New to plants? Don't worry! Follow these 5 simple steps tailored for
+            Indian homes to keep your plants healthy and thriving.
           </p>
         </div>
 
@@ -76,7 +77,9 @@ export default function CareTips() {
             <div
               key={step.number}
               className="border border-border rounded-xl overflow-hidden hover:shadow-lg transition cursor-pointer"
-              onClick={() => setActiveStep(activeStep === step.number ? 0 : step.number)}
+              onClick={() =>
+                setActiveStep(activeStep === step.number ? 0 : step.number)
+              }
             >
               {/* Header */}
               <div className={`${step.highlightColor} p-6 transition`}>
@@ -84,7 +87,8 @@ export default function CareTips() {
                   <div className="text-4xl">{step.icon}</div>
                   <div className="flex-1">
                     <h2 className="text-2xl font-bold text-foreground mb-2">
-                      <span className="text-primary">{step.number}.</span> {step.title}
+                      <span className="text-primary">{step.number}.</span>{" "}
+                      {step.title}
                     </h2>
                     <p className="text-muted-foreground">{step.description}</p>
                   </div>
@@ -126,7 +130,9 @@ export default function CareTips() {
               </ul>
             </div>
             <div>
-              <h3 className="font-bold text-lg mb-4">👑 Cultural & Spiritual</h3>
+              <h3 className="font-bold text-lg mb-4">
+                👑 Cultural & Spiritual
+              </h3>
               <ul className="space-y-2 text-muted-foreground">
                 <li>✓ Vastu Shastra compliance for positive energy</li>
                 <li>✓ Sacred plants like Tulsi for worship</li>
@@ -140,7 +146,9 @@ export default function CareTips() {
 
         {/* Quick Tips */}
         <div className="mt-12 bg-blue-50 border border-blue-200 rounded-xl p-8">
-          <h2 className="text-2xl font-bold mb-6">💡 Quick Care Tips for Indian Climate</h2>
+          <h2 className="text-2xl font-bold mb-6">
+            💡 Quick Care Tips for Indian Climate
+          </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <h3 className="font-bold text-lg mb-3">☔ During Monsoon</h3>
@@ -175,7 +183,8 @@ export default function CareTips() {
         {/* CTA */}
         <div className="mt-12 text-center">
           <p className="text-lg text-muted-foreground mb-6">
-            Ready to bring nature into your home? Start with plants that match your care level!
+            Ready to bring nature into your home? Start with plants that match
+            your care level!
           </p>
           <a
             href="/shop"

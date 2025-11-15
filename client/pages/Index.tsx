@@ -84,7 +84,9 @@ export default function Index() {
                 Bring Nature Home
               </h1>
               <p className="text-lg text-muted-foreground max-w-md">
-                Discover our curated collection of beautiful, healthy plants delivered straight to your door. Join our membership for exclusive perks!
+                Discover our curated collection of beautiful, healthy plants
+                delivered straight to your door. Join our membership for
+                exclusive perks!
               </p>
               <div className="flex gap-4">
                 <Link to="/shop">
@@ -140,9 +142,12 @@ export default function Index() {
       <section className="py-12 bg-gradient-to-r from-primary via-primary/90 to-primary/80">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <div className="text-4xl mb-4">👑</div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Join PlantHub Subscription</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Join PlantHub Subscription
+          </h2>
           <p className="text-lg text-white/90 mb-6">
-            Get up to 20% discount, free delivery, free pots, and expert plant care consultation!
+            Get up to 20% discount, free delivery, free pots, and expert plant
+            care consultation!
           </p>
           <Link to="/shop">
             <Button className="bg-white text-primary hover:bg-white/90 font-semibold">
@@ -165,7 +170,9 @@ export default function Index() {
               >
                 <div className="text-4xl mb-3">{cat.icon}</div>
                 <h3 className="font-semibold">{cat.name}</h3>
-                <p className="text-sm text-muted-foreground mt-1">{cat.count} items</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {cat.count} items
+                </p>
               </Link>
             ))}
           </div>
@@ -177,7 +184,10 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold">Featured Plants</h2>
-            <Link to="/shop" className="flex items-center gap-2 text-primary hover:gap-3 transition font-semibold">
+            <Link
+              to="/shop"
+              className="flex items-center gap-2 text-primary hover:gap-3 transition font-semibold"
+            >
               View All
               <ArrowRight className="w-4 h-4" />
             </Link>
@@ -186,7 +196,10 @@ export default function Index() {
           {loading ? (
             <div className="grid md:grid-cols-4 gap-6">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="border border-border rounded-xl overflow-hidden animate-pulse">
+                <div
+                  key={i}
+                  className="border border-border rounded-xl overflow-hidden animate-pulse"
+                >
                   <div className="bg-muted h-48 w-full"></div>
                   <div className="p-4 space-y-3">
                     <div className="h-4 bg-muted rounded w-3/4"></div>
@@ -212,10 +225,16 @@ export default function Index() {
                       </span>
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold text-foreground truncate">{product.name}</h3>
-                      <p className="text-sm text-muted-foreground truncate">{product.scientificName}</p>
+                      <h3 className="font-semibold text-foreground truncate">
+                        {product.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground truncate">
+                        {product.scientificName}
+                      </p>
                       <div className="mt-4 flex justify-between items-center">
-                        <span className="text-lg font-bold text-primary">₹{product.price}</span>
+                        <span className="text-lg font-bold text-primary">
+                          ₹{product.price}
+                        </span>
                         <button className="bg-primary text-white px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-primary/90 transition">
                           Add to Cart
                         </button>
@@ -234,7 +253,8 @@ export default function Index() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to go green?</h2>
           <p className="text-lg text-muted-foreground mb-6">
-            Start your plant journey today and transform your space into a green oasis.
+            Start your plant journey today and transform your space into a green
+            oasis.
           </p>
           <Link to="/shop">
             <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 text-lg">

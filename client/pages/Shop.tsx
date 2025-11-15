@@ -19,9 +19,18 @@ export default function Shop() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "All Plants");
+  const [selectedCategory, setSelectedCategory] = useState(
+    searchParams.get("category") || "All Plants",
+  );
 
-  const categories = ["All Plants", "Indoor Plants", "Outdoor Plants", "Gifting", "Office Plants", "XL Plants"];
+  const categories = [
+    "All Plants",
+    "Indoor Plants",
+    "Outdoor Plants",
+    "Gifting",
+    "Office Plants",
+    "XL Plants",
+  ];
   const sortOptions = ["Name", "Price: Low to High", "Price: High to Low"];
   const [selectedSort, setSelectedSort] = useState("Name");
 
@@ -29,7 +38,8 @@ export default function Shop() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const category = selectedCategory === "All Plants" ? "" : selectedCategory;
+        const category =
+          selectedCategory === "All Plants" ? "" : selectedCategory;
         const params = new URLSearchParams();
 
         if (category) params.append("category", category);
@@ -89,7 +99,9 @@ export default function Shop() {
           <aside className="space-y-6">
             {/* Search */}
             <div>
-              <label className="block text-sm font-semibold mb-3">Search plants...</label>
+              <label className="block text-sm font-semibold mb-3">
+                Search plants...
+              </label>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
@@ -107,7 +119,10 @@ export default function Shop() {
               <h3 className="font-semibold mb-3">Categories</h3>
               <div className="space-y-2">
                 {categories.map((cat) => (
-                  <label key={cat} className="flex items-center gap-2 cursor-pointer hover:bg-muted p-2 rounded">
+                  <label
+                    key={cat}
+                    className="flex items-center gap-2 cursor-pointer hover:bg-muted p-2 rounded"
+                  >
                     <input
                       type="checkbox"
                       checked={selectedCategory === cat}
@@ -167,7 +182,10 @@ export default function Shop() {
             {loading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="border border-border rounded-xl overflow-hidden animate-pulse">
+                  <div
+                    key={i}
+                    className="border border-border rounded-xl overflow-hidden animate-pulse"
+                  >
                     <div className="bg-muted h-48 w-full"></div>
                     <div className="p-4 space-y-3">
                       <div className="h-4 bg-muted rounded w-3/4"></div>
@@ -180,7 +198,10 @@ export default function Shop() {
             ) : products.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {products.map((product) => (
-                  <div key={product._id} className="border border-border rounded-xl overflow-hidden hover:shadow-lg transition group">
+                  <div
+                    key={product._id}
+                    className="border border-border rounded-xl overflow-hidden hover:shadow-lg transition group"
+                  >
                     <Link to={`/product/${product._id}`}>
                       <div className="relative overflow-hidden bg-muted h-48">
                         <img
@@ -195,17 +216,27 @@ export default function Shop() {
                     </Link>
                     <div className="p-4">
                       <Link to={`/product/${product._id}`}>
-                        <h3 className="font-semibold text-foreground truncate hover:text-primary">{product.name}</h3>
-                        <p className="text-sm text-muted-foreground truncate">{product.scientificName}</p>
+                        <h3 className="font-semibold text-foreground truncate hover:text-primary">
+                          {product.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground truncate">
+                          {product.scientificName}
+                        </p>
                       </Link>
 
                       <div className="mt-3 flex gap-2 text-xs text-muted-foreground">
-                        <span className="bg-muted px-2 py-1 rounded">{product.light}</span>
-                        <span className="bg-muted px-2 py-1 rounded">{product.water}</span>
+                        <span className="bg-muted px-2 py-1 rounded">
+                          {product.light}
+                        </span>
+                        <span className="bg-muted px-2 py-1 rounded">
+                          {product.water}
+                        </span>
                       </div>
 
                       <div className="mt-4 flex justify-between items-center">
-                        <span className="text-lg font-bold text-primary">₹{product.price}</span>
+                        <span className="text-lg font-bold text-primary">
+                          ₹{product.price}
+                        </span>
                         <button
                           onClick={() => handleAddToCart(product)}
                           className="bg-primary text-white px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-primary/90 transition"
@@ -219,7 +250,9 @@ export default function Shop() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-lg text-muted-foreground">No plants found matching your criteria.</p>
+                <p className="text-lg text-muted-foreground">
+                  No plants found matching your criteria.
+                </p>
               </div>
             )}
           </div>

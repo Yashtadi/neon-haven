@@ -35,7 +35,15 @@ export const createOrder: RequestHandler = async (req, res) => {
   try {
     await connectToDatabase();
 
-    const { items, subtotal, discount, shipping, total, deliveryAddress, paymentMethod } = req.body as OrderRequest;
+    const {
+      items,
+      subtotal,
+      discount,
+      shipping,
+      total,
+      deliveryAddress,
+      paymentMethod,
+    } = req.body as OrderRequest;
     const userEmail = getTokenUserId(req);
 
     if (!items || !Array.isArray(items) || items.length === 0) {
@@ -44,7 +52,9 @@ export const createOrder: RequestHandler = async (req, res) => {
     }
 
     if (!deliveryAddress || !paymentMethod) {
-      res.status(400).json({ error: "Delivery address and payment method are required" });
+      res
+        .status(400)
+        .json({ error: "Delivery address and payment method are required" });
       return;
     }
 
@@ -55,7 +65,9 @@ export const createOrder: RequestHandler = async (req, res) => {
       userId = user ? user._id : null;
     }
 
-    const deliveryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    const deliveryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0];
 
     const newOrder = await Order.create({
       userId,

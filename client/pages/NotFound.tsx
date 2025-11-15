@@ -16,9 +16,12 @@ const NotFound = () => {
       <div className="text-center max-w-md">
         <div className="text-8xl mb-6">🌿</div>
         <h1 className="text-5xl font-bold text-foreground mb-3">404</h1>
-        <p className="text-xl text-muted-foreground mb-6">Oops! This page doesn't exist</p>
+        <p className="text-xl text-muted-foreground mb-6">
+          Oops! This page doesn't exist
+        </p>
         <p className="text-muted-foreground mb-8">
-          The page you're looking for has gone to the great green beyond. Let's get you back on track!
+          The page you're looking for has gone to the great green beyond. Let's
+          get you back on track!
         </p>
         <div className="flex gap-4 justify-center">
           <Link
