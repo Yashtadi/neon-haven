@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+ex items-center gap-2 text-primary hover:gap-3 transition mb-6 font-medium">
+          <ArrowLeft className="w-4 h-4" />
+          Back to Shop
+        </Link>import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus, Minus, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -100,10 +103,7 @@ export default function ProductDetail() {
     <div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Back Button */}
-        <Link to="/shop" className="flex items-center gap-2 text-primary hover:gap-3 transition mb-6 font-medium">
-          <ArrowLeft className="w-4 h-4" />
-          Back to Shop
-        </Link>
+        <Link to="/shop" className="fl
 
         {/* Product Layout */}
         <div className="grid md:grid-cols-2 gap-8">
