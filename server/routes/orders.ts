@@ -1,9 +1,7 @@
 import { RequestHandler } from "express";
-import { promises as fs } from "fs";
-import { join } from "path";
-
-const dataDir = join(process.cwd(), "data");
-const ordersFile = join(dataDir, "orders.json");
+import { Order } from "../models/Order";
+import { User } from "../models/User";
+import { connectToDatabase } from "../db";
 
 interface OrderItem {
   productId: string;
@@ -12,16 +10,12 @@ interface OrderItem {
   price: number;
 }
 
-interface Order {
-  _id: string;
-  userId: string;
+interface OrderRequest {
   items: OrderItem[];
   subtotal: number;
   discount: number;
   shipping: number;
   total: number;
-  status: "pending" | "confirmed" | "shipped" | "delivered";
-  deliveryDate: string;
   deliveryAddress: {
     fullName: string;
     phone: string;
@@ -31,46 +25,18 @@ interface Order {
     pincode: string;
   };
   paymentMethod: string;
-  createdAt: string;
 }
 
-const ensureDataDir = async () => {
-  try {
-    await fs.mkdir(dataDir, { recursive: true });
-  } catch (error) {
-    // Directory may already exist
-  }
-};
-
-const readOrders = async (): Promise<Order[]> => {
-  try {
-    await ensureDataDir();
-    const data = await fs.readFile(ordersFile, "utf-8");
-    return JSON.parse(data);
-  } catch {
-    return [];
-  }
-};
-
-const writeOrders = async (orders: Order[]): Promise<void> => {
-  await ensureDataDir();
-  await fs.writeFile(ordersFile, JSON.stringify(orders, null, 2));
-};
-
-const generateOrderId = (): string => {
-  return Date.now().toString(36).toUpperCase();
-};
-
 const getTokenUserId = (req: any): string | null => {
-  const token = req.headers.authorization?.split(" ")[1];
-  // For now, we'll use a simple approach - in production use JWT verification
   return req.headers["x-user-id"] || null;
 };
 
 export const createOrder: RequestHandler = async (req, res) => {
   try {
-    const { items, subtotal, discount, shipping, total, deliveryAddress, paymentMethod } = req.body;
-    const userId = getTokenUserId(req) || "anonymous";
+    await connectToDatabase();
+
+    const { items, subtotal, discount, shipping, total, deliveryAddress, paymentMethod } = req.body as OrderRequest;
+    const userEmail = getTokenUserId(req);
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       res.status(400).json({ error: "Items are required" });
@@ -82,8 +48,16 @@ export const createOrder: RequestHandler = async (req, res) => {
       return;
     }
 
-    const newOrder: Order = {
-      _id: generateOrderId(),
+    // Find user by email
+    let userId = null;
+    if (userEmail) {
+      const user = await User.findOne({ email: userEmail });
+      userId = user ? user._id : null;
+    }
+
+    const deliveryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+
+    const newOrder = await Order.create({
       userId,
       items,
       subtotal,
@@ -91,55 +65,68 @@ export const createOrder: RequestHandler = async (req, res) => {
       shipping,
       total,
       status: "pending",
-      deliveryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+      deliveryDate,
       deliveryAddress,
       paymentMethod,
-      createdAt: new Date().toISOString(),
-    };
-
-    const orders = await readOrders();
-    orders.push(newOrder);
-    await writeOrders(orders);
+    });
 
     res.status(201).json(newOrder);
   } catch (error) {
+    console.error("Create order error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const getOrders: RequestHandler = async (req, res) => {
   try {
-    const userId = getTokenUserId(req);
+    await connectToDatabase();
 
-    if (!userId) {
+    const userEmail = getTokenUserId(req);
+
+    if (!userEmail) {
       res.status(401).json({ error: "User not authenticated" });
       return;
     }
 
-    const orders = await readOrders();
-    const userOrders = orders.filter((o) => o.userId === userId);
+    // Find user
+    const user = await User.findOne({ email: userEmail });
+    if (!user) {
+      res.status(401).json({ error: "User not found" });
+      return;
+    }
+
+    const orders = await Order.find({ userId: user._id });
 
     res.json({
-      orders: userOrders,
-      total: userOrders.length,
+      orders,
+      total: orders.length,
     });
   } catch (error) {
+    console.error("Get orders error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const getOrderById: RequestHandler = async (req, res) => {
   try {
-    const { id } = req.params;
-    const userId = getTokenUserId(req);
+    await connectToDatabase();
 
-    if (!userId) {
+    const { id } = req.params;
+    const userEmail = getTokenUserId(req);
+
+    if (!userEmail) {
       res.status(401).json({ error: "User not authenticated" });
       return;
     }
 
-    const orders = await readOrders();
-    const order = orders.find((o) => o._id === id && o.userId === userId);
+    // Find user
+    const user = await User.findOne({ email: userEmail });
+    if (!user) {
+      res.status(401).json({ error: "User not found" });
+      return;
+    }
+
+    const order = await Order.findOne({ _id: id, userId: user._id });
 
     if (!order) {
       res.status(404).json({ error: "Order not found" });
@@ -148,6 +135,7 @@ export const getOrderById: RequestHandler = async (req, res) => {
 
     res.json(order);
   } catch (error) {
+    console.error("Get order error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
