@@ -2,13 +2,17 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import { connectToDatabase } from "./db";
 
 // Auth and product routes
 import { registerUser, loginUser, getProfile } from "./routes/auth";
 import { getProducts, getProductById } from "./routes/products";
 import { getOrders, getOrderById, createOrder } from "./routes/orders";
 
-export function createServer() {
+export async function createServer() {
+  // Connect to database on startup
+  await connectToDatabase();
+
   const app = express();
 
   // Middleware
